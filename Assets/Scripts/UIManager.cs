@@ -1,41 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField]
-    private SortSettings m_SortSettings;
+    [SerializeField] private ArraySettings m_SortSettings;
 
-    [SerializeField]
-    private GameObject m_SortOptionsPanel;
-
-    [SerializeField]
-    private Dropdown m_SortAlgorithmsDropdown;  // for showing all supported sort algorithms
-
-    [SerializeField]
-    private Dropdown m_OrderingDropdown;    // the order can be Ascending or Descending
-
-    [SerializeField]
-    private Slider m_ArraySizeSlider;   // for changing number of bars on screen
-    [SerializeField]
-    private Text m_ArraySizeGUIText;
+    /* sort options */
+    [SerializeField] private GameObject m_SortOptionsPanel;
+    [SerializeField] private Dropdown m_SortAlgorithmsDropdown;  // for showing all supported sort algorithms
+    [SerializeField] private Dropdown m_OrderingDropdown;    // the order can be Ascending or Descending
+    [SerializeField] private Slider m_ArraySizeSlider;   // for changing number of bars on screen
+    [SerializeField] private Text m_ArraySizeGUIText;
     private int m_ArraySize;            // only when (int)value of m_ArraySizeSlider is changed, listener will work
-
-    [SerializeField]
-    private Slider m_DelayTimeSlider;
-
-    [SerializeField]
-    private Button m_ResetButton;   // for some reasons like changing the sort algorithm from its dropdown
-
-    [SerializeField]
-    private Button m_RunButton;     // for starting selected sort algorithm from its dropdown
-
+    [SerializeField] private Slider m_DelayTimeSlider;
+    [SerializeField] private Button m_ResetButton;   // for some reasons like changing the sort algorithm from its dropdown
+    [SerializeField] private Button m_RunButton;     // for starting selected sort algorithm from its dropdown
     [Header("Timing")]
-    [SerializeField]
-    private Text m_DelayText;
+    [SerializeField] private Text m_DelayText;
 
     [SerializeField]
     private uint m_MinimumDelayTime = 1;
@@ -142,7 +125,8 @@ public class UIManager : MonoBehaviour
             m_ArraySizeGUIText.text = m_ArraySize.ToString();
 
             // size of this array will be set from given slider
-            BarsManager.Instance.SetValues(ArrayGenerator.CreateRandomArray(m_ArraySize, m_MinimumRange, m_MaximumRange));
+            BarsManager.Instance.SetValues(
+                ArrayGenerator.CreateRandomArray(m_ArraySize, m_MinimumRange, m_MaximumRange), this);
         }
     }
 
@@ -187,7 +171,7 @@ public class UIManager : MonoBehaviour
 
     private void OnResetButtonClicked()
     {
-        BarsManager.Instance.SetValues(ArrayGenerator.CreatedArray);
+        BarsManager.Instance.SetValues(ArrayGenerator.CreatedArray, this);
     }
     #endregion
 

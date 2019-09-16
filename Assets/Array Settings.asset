@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sort Settings
   m_EditorClassIdentifier: 
   NumberOf_MinimumElements: 5
-  NumberOf_MaximumElements: 20
+  NumberOf_MaximumElements: 1000

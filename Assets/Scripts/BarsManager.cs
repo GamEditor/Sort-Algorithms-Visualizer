@@ -6,7 +6,7 @@ public class BarsManager : MonoBehaviour
     public static BarsManager Instance;
 
     [SerializeField]
-    private SortSettings m_SortSettings;
+    private ArraySettings m_SortSettings;
 
     [SerializeField]
     private Bar m_BarPrefab;
@@ -50,14 +50,20 @@ public class BarsManager : MonoBehaviour
         }
     }
 
-    public void HideAllBars()
+    private void HideAllBars()
     {
         for (int i = 0; i < m_Bars.Count; i++)
             m_Bars[i].gameObject.SetActive(false);
     }
 
-    public void SetValues(int[] values)
+    public void SetValues(int[] values, UIManager callerClass)
     {
+        if(callerClass == null)
+        {
+            Debug.LogWarning("the caller class is wrong!");
+            return;
+        }
+
         if (values.Length > m_SortSettings.NumberOf_MaximumElements)
         {
             Debug.LogWarning($"your array size is greater than {m_SortSettings.NumberOf_MaximumElements}");
